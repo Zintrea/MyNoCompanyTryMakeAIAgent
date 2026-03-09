@@ -33,14 +33,13 @@ pip install -r requirements.txt
 2. Open file: `C:\Host\03 Projects\03 AIAgent\MyNoCompanyTryMakeAIAgent\.env`
 3. Replace `YOUR_API_KEY_HERE` with your real keys
 
-**Get keys from:** https://platform.deepseek.com/
+**Get keys from:** https://console.groq.com/
 
 **Format:**
 ```env
-DEEPSEEK_API_KEY_1=sk-xxxxxxxxxxxxxxxxxxxxxxxx
-DEEPSEEK_API_KEY_2=sk-yyyyyyyyyyyyyyyyyyyyyy
-DEEPSEEK_API_KEY_3=sk-zzzzzzzzzzzzzzzzzzzzzz
-DEEPSEEK_API_KEY_4=sk-aaaaaaaaaaaaaaaaaaaaa
+GROQ_API_KEY_1=gsk_xxxxxxxxxxxxxxxxxxxxxxxx
+GROQ_API_KEY_2=gsk_yyyyyyyyyyyyyyyyyyyyyy
+GROQ_API_KEY_3=gsk_zzzzzzzzzzzzzzzzzzzzzz
 ```
 
 You need at least 1 API key. Add more keys (up to 9) for better reliability.
@@ -80,8 +79,11 @@ Follow the prompts:
 Edit `MODEL_PRIORITY_LIST` to change model preference order.
 
 Current models:
-- `deepseek-chat` - General conversation
-- `deepseek-coder` - Code-focused tasks
+- `llama-3.3-70b-versatile` - Llama 3.3 70B
+- `llama-3.1-70b-versatile` - Llama 3.1 70B
+- `llama-3.1-8b-instant` - Llama 3.1 8B
+- `mixtral-8x7b-32768` - Mixtral 8x7B
+- `gemma2-9b-it` - Gemma 2 9B
 
 ### Agent Personalities (Agents.py)
 Modify `system_message` for each agent to customize behavior.
@@ -101,7 +103,7 @@ pip install pyautogen
 ```
 
 **API Error**
-- Your DeepSeek API key is invalid or missing
+- Your Groq API key is invalid or missing
 - Edit `.env` file and add real API keys
 
 **Program stuck**

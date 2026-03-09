@@ -2,6 +2,7 @@ import autogen
 import sys
 import re
 import os
+import google.generativeai as genai
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -9,18 +10,17 @@ load_dotenv()
 def _get_api_keys():
     keys = []
     for i in range(1, 10):
-        key = os.getenv(f"DEEPSEEK_API_KEY_{i}")
+        key = os.getenv(f"GOOGLE_API_KEY_{i}")
         if key and not key.startswith("YOUR_"):
             keys.append(key)
     return keys
 
 # =================================================================
-# DeepSeek Model Priority List
+# Gemini Model Priority List
 # =================================================================
 
 MODEL_PRIORITY_LIST = [
-    "deepseek-chat",
-    "deepseek-coder",
+    "gemini-2.5-flash",
 ]
 
 # =================================================================
@@ -29,19 +29,20 @@ MODEL_PRIORITY_LIST = [
 
 API_KEYS = _get_api_keys()
 
-DEEPSEEK_BASE_URL = "https://api.deepseek.com"
+for key in API_KEYS:
+    genai.configure(api_key=key)
 
 def get_fallback_config_list():
     config_list = []
     
-    for _ in range(50):
+    # Reduced loops for free tier quota limits
+    for _ in range(1):
         for model in MODEL_PRIORITY_LIST:
             for key in API_KEYS:
                 config_list.append({
                     "model": model,
                     "api_key": key,
-                    "api_type": "openai",
-                    "base_url": DEEPSEEK_BASE_URL,
+                    "api_type": "google",
                 })
     return config_list
 

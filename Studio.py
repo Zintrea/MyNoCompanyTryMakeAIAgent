@@ -2,6 +2,7 @@ import autogen
 import Config
 import Agents
 import os
+import sys
 
 # =================================================================
 # 1. Start Logging
@@ -50,11 +51,16 @@ print(f"📂 โหลดประวัติการเสนอขายเ�
 
 past_lessons = load_meeting_history()
 
-shop_name = input("ชื่อร้านที่จะไปเสนอ: ")
-shop_location = input("ที่ตั้ง (เช่น ซอยสุขุมวิท 15): ")
+# Use command line args or defaults
+if len(sys.argv) >= 3:
+    shop_name = sys.argv[1]
+    shop_location = sys.argv[2]
+else:
+    shop_name = input("ชื่อร้านที่จะไปเสนอ: ")
+    shop_location = input("ที่ตั้ง (เช่น ซอยสุขุมวิท 15): ")
 
 initial_prompt = f"""
-สถานการณ์: นักศึกษา 2 คน (Pong และ Mei) ต้องการเสนอทำเว็บไซต์ให้กับร้านน้ำชาบู้บ
+สถานการณ์: นักศึกษา 2 คน (Pong และ Mei) ต้องการเสนอทำเว็บไซต์ให้กับร้านน้ำชาไข่มุกชื่อดังในท้องถิ่น เพื่อเพิ่มยอดขายและดึงดูดลูกค้าใหม่ๆ
 ชื่อร้าน: {shop_name}
 ที่ตั้ง: {shop_location}
 
@@ -76,6 +82,8 @@ initial_prompt = f"""
 - พนักงาน (Kung) กังวลว่าเว็บไซต์จะทำให้ลูกค้ามาที่ร้านน้อยลง ส่งผลต่อรายได้
 - ให้ทุกคนพูดคุยเป็นภาษาไทย
 - พยายามโน้มน้าวใจให้สำเร็จ แต่ถ้าไม่ได้ก็จบที่นามบัตร
+
+ให้คนที่เริ่มพูดคือ Pong เสนอแว่าเว็บไซต์จะช่วยอะไรได้
 """
 
 Agents.student_1.initiate_chat(
